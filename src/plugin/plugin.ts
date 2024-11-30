@@ -10,15 +10,9 @@ async function bootstrap() {
     figma.showUI(__html__, {
       width: 800,
       height: 650,
-      title: "My Figma Plugin!",
+      title: "send-compnent-to-server",
     });
-  } else if (figma.editorType === "figjam") {
-    figma.showUI(__html__, {
-      width: 800,
-      height: 650,
-      title: "My FigJam Plugin!",
-    });
-  }
+  } 
 
   console.log("Bootstrapped @", Networker.Side.current.getName());
 
