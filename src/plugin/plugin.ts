@@ -10,13 +10,13 @@ async function bootstrap() {
     figma.showUI(__html__, {
       width: 800,
       height: 650,
-      title: "send-compnent-to-server",
+      title: "Send compnents to your server",
     });
   } 
 
   console.log("Bootstrapped @", Networker.Side.current.getName());
 
-  NetworkMessages.HELLO_UI.send({ text: "Hey there, UI!" });
+  // NetworkMessages.HELLO_UI.send({ text: "Hey there, UI!" });
 }
 
 bootstrap();

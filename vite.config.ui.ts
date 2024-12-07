@@ -8,6 +8,14 @@ import postcssUrl from "postcss-url";
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
   plugins: [react(), richSvg(), viteSingleFile()],
+  config: (_, env) => {
+    if (env) {
+      const key = "import.meta.env.PACKAGE_VERSION";
+      const val = JSON.stringify(process.env.npm_package_version);
+
+      return { define: { [key]: val } };
+    } 
+  },
   root: path.resolve("src/ui"),
   build: {
     minify: mode === "production",

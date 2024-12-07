@@ -7,6 +7,7 @@ type Response = {
 	serverUrl: string;
 	componentName: string;
 	breakpoint: string;
+	mode: string;
 };
 
 export class GetConfigMessage extends Networker.MessageType<Payload, Response> {
@@ -24,7 +25,8 @@ export class GetConfigMessage extends Networker.MessageType<Payload, Response> {
 		return {
 			serverUrl: '',
 			componentName: '',
-			breakpoint: 'BRONZE'
+			breakpoint: 'BRONZE',
+			mode: 'AUTO'
 		};
 
 	} 
@@ -34,7 +36,8 @@ export class GetConfigMessage extends Networker.MessageType<Payload, Response> {
 	return {
 		serverUrl: parsedConfig.serverUrl,
 		componentName: parsedConfig.componentName,
-		breakpoint: parsedConfig.breakpoint
+		breakpoint: parsedConfig.breakpoint,
+		mode: parsedConfig.mode
 	}
   }
 }

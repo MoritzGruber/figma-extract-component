@@ -5,6 +5,7 @@ interface Payload {
   serverUrl: string;
   componentName: string;
   breakpoint: string;
+  mode: string;
 }
 
 export class SetConfigMessage extends Networker.MessageType<Payload, void> {
@@ -18,6 +19,7 @@ export class SetConfigMessage extends Networker.MessageType<Payload, void> {
       serverUrl: payload.serverUrl,
       componentName: payload.componentName,
       breakpoint: payload.breakpoint,
+      mode: payload.mode,
     });
 
     figma.root.setPluginData("config", configString);
