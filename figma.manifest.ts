@@ -2,7 +2,7 @@
 export default {
   name: "send-compnent-to-server",
   id: "1441863874619228475",
-  api: "1.0.0",
+  api: "1.0.2",
   main: "plugin.js",
   ui: "index.html",
   capabilities: [],

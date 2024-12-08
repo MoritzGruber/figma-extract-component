@@ -10,7 +10,7 @@ import { Toaster, toast } from 'sonner'
 
 import { Button } from "@ui/components/Button";
 import "@ui/styles/main.scss";
-const version = "v1.0.1";
+const version = "v1.0.2";
 const BREAKPOINTS = ["BRONZE", "SILVER", "GOLD", "PLATINUM", "DIAMOND"];
 
 function App() {

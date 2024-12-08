@@ -11,6 +11,16 @@ interface Payload {
 type Response = string;
 
 
+function toPascalCase(str: string): string {
+  if (!str || typeof str !== 'string') return '';
+  
+  return str
+    .toLowerCase()
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join('');
+}
+
 
 export class ExportRequestMessage extends Networker.MessageType<
   Payload,
@@ -73,7 +83,7 @@ export class ExportRequestMessage extends Networker.MessageType<
             )}&childNodeName=${encodeURIComponent(
               childNodeName
             )}&componentName=${encodeURIComponent(
-              componentName
+              toPascalCase(componentName)
             )}&breakpoint=${encodeURIComponent(
               breakpointName
             )}&format=${encodeURIComponent(format)}`;
