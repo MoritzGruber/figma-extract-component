@@ -11,14 +11,61 @@ interface Payload {
 type Response = string;
 
 
-function toPascalCase(str: string): string {
-  if (!str || typeof str !== 'string') return '';
+function toAPICasing(str: string): string {
+  let result = "";
   
-  return str
-    .toLowerCase()
-    .split(' ')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join('');
+  // Helper function to check if character is uppercase
+  const isUpper = (char: string): boolean => {
+    return char === char.toUpperCase();
+  };
+  
+  // Iterate through string characters
+  for (let i = 0; i < str.length; i++) {
+    const c = str[i];
+    
+    // Skip spaces
+    if (c === " ") {
+      continue;
+    }
+    
+    // First character should be uppercase
+    if (i === 0) {
+      result += c.toUpperCase();
+      continue;
+    }
+    
+    // After space should be uppercase
+    if (str[i - 1] === " ") {
+      result += c.toUpperCase();
+      continue;
+    }
+    
+    // Handle uppercase characters
+    if (isUpper(c)) {
+      const before = str[i - 1];
+      
+      if (isUpper(before)) {
+        // Check if there's a next character and it's lowercase
+        if (i + 1 < str.length) {
+          const after = str[i + 1];
+          if (!isUpper(after)) {
+            result += c.toUpperCase();
+            continue;
+          }
+        }
+        result += c.toLowerCase();
+        continue;
+      }
+      
+      result += c.toUpperCase();
+      continue;
+    }
+    
+    // Default case: lowercase
+    result += c.toLowerCase();
+  }
+  
+  return result;
 }
 
 
@@ -83,7 +130,7 @@ export class ExportRequestMessage extends Networker.MessageType<
             )}&childNodeName=${encodeURIComponent(
               childNodeName
             )}&componentName=${encodeURIComponent(
-              toPascalCase(componentName)
+              toAPICasing(componentName)
             )}&breakpoint=${encodeURIComponent(
               breakpointName
             )}&format=${encodeURIComponent(format)}`;
