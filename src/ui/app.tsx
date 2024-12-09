@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import * as Networker from "monorepo-networker";
 import { NetworkMessages } from "@common/network/messages";
 import { NetworkSide } from "@common/network/sides";
-import { Toaster, toast } from 'sonner'
+import { Toaster, toast } from "sonner";
 
 // import ReactLogo from "@ui/assets/react.svg?component";
 // import viteLogo from "@ui/assets/vite.svg?url";
@@ -10,7 +10,7 @@ import { Toaster, toast } from 'sonner'
 
 import { Button } from "@ui/components/Button";
 import "@ui/styles/main.scss";
-const version = "v1.0.2";
+const version = "v1.0.3";
 const BREAKPOINTS = ["BRONZE", "SILVER", "GOLD", "PLATINUM", "DIAMOND"];
 
 function App() {
@@ -41,13 +41,15 @@ function App() {
   }, []);
   useEffect(() => {
     const handlePluginMsg = (event: CustomEvent) => {
-      const msg = `${event.detail}`.replace("_x_", " @ ").replace("starting", "▶️");
+      const msg = `${event.detail}`
+        .replace("_x_", " @ ")
+        .replace("starting", "▶️");
       if (`${event.detail}`.startsWith("done")) {
-        toast.success(msg, {duration: 10000})
-      }else if (`${event.detail}`.startsWith("starting")) {
-        toast.info(msg, {duration: 10000})
-      }else {
-        toast.error(event.detail, {duration: 10000})
+        toast.success(msg, { duration: 10000 });
+      } else if (`${event.detail}`.startsWith("starting")) {
+        toast.info(msg, { duration: 10000 });
+      } else {
+        toast.error(event.detail, { duration: 10000 });
       }
     };
 
@@ -57,21 +59,21 @@ function App() {
       (document as any).removeEventListener("pluginmsg", handlePluginMsg);
     };
   }, []);
-
+  console.log(` mode`, mode);
   return (
     <div className="homepage">
-      <Toaster 
-      toastOptions={{
-        unstyled: false,
-        classNames: {
-          toast: 'bg-blue-400',
-          title: 'text-red-400',
-          description: 'text-red-400',
-          actionButton: 'bg-zinc-400',
-          cancelButton: 'bg-orange-400',
-          closeButton: 'bg-lime-400',
-        },
-      }}
+      <Toaster
+        toastOptions={{
+          unstyled: false,
+          classNames: {
+            toast: "bg-blue-400",
+            title: "text-red-400",
+            description: "text-red-400",
+            actionButton: "bg-zinc-400",
+            cancelButton: "bg-orange-400",
+            closeButton: "bg-lime-400",
+          },
+        }}
       />
       <div>
         {/* <a href="https://www.figma.com" target="_blank">
@@ -130,13 +132,13 @@ function App() {
         <select
           id="mode"
           value={mode}
-          onChange={(e) => setMode(e.target.value)}
+          onChange={(e) => setMode(`${e.target.value}`.toUpperCase())}
           style={{ marginBottom: 10, padding: "5px" }}
         >
           <option value="MANUAL">MANUAL</option>
           <option value="AUTO">AUTO</option>
         </select>
-        {mode === "MANUAL" || mode == "manual" && (
+        {mode == "MANUAL" ? (
           <>
             <label
               style={{
@@ -178,15 +180,14 @@ function App() {
               onChange={(e) => setBreakpoint(e.target.value)}
               style={{ marginBottom: 10, padding: "5px" }}
             >
-
-            {BREAKPOINTS.map((bp) => (
-              <option key={bp} value={bp}>
-                {bp}
-              </option>
-            ))}
+              {BREAKPOINTS.map((bp) => (
+                <option key={bp} value={bp}>
+                  {bp}
+                </option>
+              ))}
             </select>
           </>
-        )}
+        ) : null}
       </div>
       <div className="card">
         <Button
@@ -214,7 +215,8 @@ function App() {
       </div>
 
       <p className="read-the-docs">
-        This plugin will send send the exported JSON, SVGSTRING and PNG to the server
+        This plugin will send send the exported JSON, SVGSTRING and PNG to the
+        server
         {/* <span>(Current logical side = {Networker.Side.current.getName()})</span> */}
       </p>
     </div>
